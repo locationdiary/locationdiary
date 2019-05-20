@@ -6,3 +6,5 @@
  Cache-Control: private, no-cache
 /*.chunk.*.js
  Cache-Control: public, max-age=31536000
+/assets/blockstack-bundle.js
+ Cache-Control: public, max-age=31536000
