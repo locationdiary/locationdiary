@@ -18,19 +18,22 @@ const customIcon = L.icon({
 import style from "./fullmap.css";
 
 class FullMap extends Component {
-  addLocations(locations, map) {
+  addLocations(locations) {
     const markers = this.state.markers;
     locations.map(location => {
       if (markers[location.id]) {
         return null;
       }
+      if (!location.location.coords || !location.location.coords.latitude) {
+        return null;
+      }
       markers[location.id] = L.marker(
-        [location.coords.latitude, location.coords.longitude],
+        [location.location.coords.latitude, location.location.coords.longitude],
         {
           icon: customIcon
         }
       )
-        .addTo(map)
+        .addTo(this.state.map)
         .bindPopup(location.message);
     });
     this.setState({
@@ -50,7 +53,6 @@ class FullMap extends Component {
         maxZoom: 19
       }
     ).addTo(map);
-
     if (this.props.locations) {
       this.addLocations(this.props.locations, map);
     }
@@ -62,6 +64,12 @@ class FullMap extends Component {
 
   componentWillUnmount() {
     this.state.map.remove();
+  }
+
+  componentWillReceiveProps(nextProps, nexState) {
+    if (nextProps.locations) {
+      this.addLocations(nextProps.locations, nexState.map);
+    }
   }
 
   constructor(props) {
