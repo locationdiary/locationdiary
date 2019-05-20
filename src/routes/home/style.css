@@ -1,24 +1,42 @@
 .home {
-	height: 100%;
-	width: 100%;
-	display: flex;
-	flex-direction: row;
-	flex-wrap: nowrap;
-	justify-content: flex-start;
-	align-content: stretch;
-	align-items: flex-start;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: flex-start;
+  align-content: stretch;
+  align-items: flex-start;
 }
 
 .fullmap {
-	height: 100%;
-	order: 0;
-	flex: 1 1 auto;
-	align-self: auto;
+  height: 100%;
+  order: 0;
+  flex: 1 1 auto;
+  align-self: auto;
 }
 
 .sidebar {
-	height: 100%;
-	order: 1;
-	flex: 0 0 360px;
-	align-self: auto;
+  height: 100%;
+  order: 1;
+  flex: 0 0 360px;
+  align-self: auto;
+}
+
+@media screen and (max-width: 768px) {
+  .home {
+    flex-direction: column;
+    justify-content: stretch;
+  }
+
+  .fullmap {
+    height: auto;
+    width: 100%;
+  }
+
+  .sidebar {
+    height: 40%;
+    width: 100%;
+    flex: 0 0 auto;
+  }
 }
