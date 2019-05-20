@@ -32,6 +32,7 @@
   "dependencies": {
     "axios": "^0.18.0",
     "blockstack": "^19.1.0",
+    "dayjs": "^1.8.14",
     "leaflet": "^1.5.1",
     "preact": "^8.2.6",
     "preact-compat": "^3.17.0",

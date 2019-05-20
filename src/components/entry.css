@@ -1,0 +1,11 @@
+.entry {
+  padding: 1em 0;
+}
+
+.date {
+  font-size: .9em;
+}
+
+.message {
+  color: #333;
+}

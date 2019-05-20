@@ -2,6 +2,7 @@
 	height: 100%;
   background-color: #fff;
   padding: 14px;
+  overflow-y: auto;
 }
 
 .logo img {
@@ -55,6 +56,7 @@ input[type=button] {
   color: #fff;
 }
 
-.entries>div {
+.entries {
   border-top: 1px solid #eee;
+  padding-top: 1em;
 }

@@ -3,7 +3,8 @@ import { v4 as uuid } from "uuid";
 
 import style from "./sidebar.css";
 import GeolocationBar from "./geolocationbar";
-import logo from "../assets/icons/apple-icon-152x152.png";
+import Entry from './entry';
+import logo from '../assets/icons/apple-icon-152x152.png';
 
 class Sidebar extends Component {
   state = {
@@ -52,54 +53,29 @@ class Sidebar extends Component {
 
   render({ session, entries }, { message }) {
     const isLoggedIn = session.isLoggedIn();
-
+console.log(entries);
     return (
       <div class={style.sidebar}>
         <div class={style.logo}>
           <img src={logo} /> Location Diary
         </div>
 
-        {!isLoggedIn && (
-          <div class={style.signin}>
-            <div>
-              Please connect using Blockstack
-              <br />
-              to open your diary
-            </div>
-            <div>
-              <input
-                type="button"
-                value="Login"
-                onClick={() => session.login()}
-              />
-            </div>
-          </div>
-        )}
+        {!isLoggedIn && <div class={style.signin}>
+          <div>Please connect using Blockstack<br/>to open your diary</div>
+          <div><input type="button" value="Login" onClick={() => session.login()} /></div>
+        </div>}
 
-        {isLoggedIn && (
-          <div class={style.publisher}>
-            <input
-              type="text"
-              value={message}
-              onChange={this.handleMessage}
-              placeholder="What are you up to?"
-            />
-            <GeolocationBar handleNewLocation={this.handleNewLocation} />
-            <input type="button" value="Publish" onClick={this.addEntry} />
-          </div>
-        )}
+        {isLoggedIn && <div class={style.publisher}>
+          <input type="text" value={message} onChange={this.handleMessage} placeholder="What are you up to?" />
+          <GeolocationBar handleNewLocation={this.handleNewLocation} />
+          <input type="button" value="Publish" onClick={this.addEntry} />
+        </div>}
 
-        {isLoggedIn && entries && (
-          <div class={style.entries}>
-            {entries.length} entries
-            {entries.map(entry => (
-              <div>
-                {entry.location && entry.location.geocode.display_name}{" "}
-                {entry.message}
-              </div>
-            ))}
-          </div>
-        )}
+        {isLoggedIn && <div class={style.entries}>
+          {!entries && <div>Loading diary…</div>}
+          {entries && <div>{entries.length === 0 ? 'No' : entries.length} {entries.length === 1 ? 'entry' : 'entries'}</div>}
+          {entries && entries.map(entry => <Entry entry={entry} />)}
+        </div>}
       </div>
     );
   }
