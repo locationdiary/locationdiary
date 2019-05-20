@@ -7,6 +7,10 @@ import Session from "./session";
 import Home from "../routes/home";
 
 export default class App extends Component {
+  state = {
+    session: null,
+  };
+
   /** Gets fired when the route changes.
    *	@param {Object} event		"change" event from [preact-router](http://git.io/preact-router)
    *	@param {string} event.url	The newly routed URL
@@ -16,14 +20,15 @@ export default class App extends Component {
   };
 
   componentDidMount() {
-    this.session = new Session();
+    const session = new Session();
+    this.setState({session});
   }
 
-  render() {
+  render({}, {session}) {
     return (
       <div id="app">
         <Router onChange={this.handleRoute}>
-          <Home path="/" />
+          <Home path="/" session={session} />
         </Router>
       </div>
     );

@@ -19,6 +19,9 @@ class Session {
   async saveData(data) {
     await this.userSession.putFile(FILE_KEY, JSON.stringify(data));
   }
+  isLoggedIn() {
+    return this.userSession.isUserSignedIn();
+  }
   async getData() {
     const fileContent = await this.userSession.getFile(FILE_KEY);
     return JSON.parse(fileContent);

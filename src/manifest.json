@@ -1,6 +1,6 @@
 {
-  "name": "bali",
-  "short_name": "bali",
+  "name": "Location Diary",
+  "short_name": "LocationDiary",
   "start_url": "/",
   "display": "standalone",
   "orientation": "portrait",

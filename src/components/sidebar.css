@@ -1,4 +1,51 @@
 .sidebar {
 	height: 100%;
   background-color: #fff;
+  padding: 14px;
+}
+
+.logo img {
+  width: 48px;
+  height: 48px;
+  vertical-align: middle;
+}
+
+.logo {
+  height: 52px;
+  font-size: 24px;
+}
+
+.signin {
+  text-align: center;
+  margin-top: 3em;
+}
+
+input[type=button] {
+  font-size: 1.1em;
+  border: 0;
+}
+
+.signin input {
+  background-color: rgb(35, 13, 46);
+  color: #fff;
+  margin-top: 2em;
+  padding: .6em 1em;
+}
+
+.publisher input[type=text] {
+  width: 100%;
+  padding: .6em;
+  margin-bottom: 1em;
+  font-size: 1.2em;
+}
+
+.publisher button {
+  float: left;
+}
+
+.publisher input[type=button] {
+  float: right;
+  padding: .3em .6em;
+  background-color: #75B1ED;
+  color: #fff;
 }

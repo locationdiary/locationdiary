@@ -4,13 +4,13 @@ import style from "./style";
 import FullMap from "../../components/fullmap";
 import Sidebar from "../../components/sidebar";
 
-const Home = () => (
+const Home = ({session}) => (
   <div class={style.home}>
     <div class={style.fullmap}>
       <FullMap />
     </div>
     <div class={style.sidebar}>
-      <Sidebar />
+      <Sidebar session={session} />
     </div>
   </div>
 );
