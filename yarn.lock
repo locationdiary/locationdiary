@@ -6889,6 +6889,11 @@ postcss@^6.0.0, postcss@^6.0.1, postcss@^6.0.17, postcss@^6.0.2:
     source-map "^0.6.1"
     supports-color "^5.4.0"
 
+preact-cli-plugin-netlify@^1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/preact-cli-plugin-netlify/-/preact-cli-plugin-netlify-1.1.0.tgz#19d91aab099f134e14952856e4bdfd732596c5eb"
+  integrity sha1-GdkaqwmfE04UlShW5L39cyWWxes=
+
 preact-cli@^2.1.0:
   version "2.2.1"
   resolved "https://registry.yarnpkg.com/preact-cli/-/preact-cli-2.2.1.tgz#05a3311e89bdb120a5273532c77b87bdd710e04b"
