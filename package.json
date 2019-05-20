@@ -30,6 +30,7 @@
     "preact-render-spy": "^1.2.1"
   },
   "dependencies": {
+    "axios": "^0.18.0",
     "leaflet": "^1.5.1",
     "preact": "^8.2.6",
     "preact-compat": "^3.17.0",
