@@ -1,8 +1,6 @@
 import { h, Component } from "preact";
 import axios from "axios";
 
-import style from "./fullmap.css";
-
 class GeolocationBar extends Component {
   handleError(error) {
     let errorMessage;
@@ -31,6 +29,9 @@ class GeolocationBar extends Component {
     const { data } = await axios.get(
       `https://nominatim.openstreetmap.org/reverse?lat=${lat}&lon=${lon}&format=json`
     );
+    if (data.error) {
+      return null;
+    }
     return data;
   }
   async handleNewLocation(position) {
