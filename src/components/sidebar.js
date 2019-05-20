@@ -31,7 +31,16 @@ class Sidebar extends Component {
 
   handleNewLocation = (coords, geocode) => {
     this.setState({
-      location: { coords, geocode }
+      location: {
+        coords: {
+          latitude: coords.latitude,
+          longitude: coords.longitude,
+          altitude: coords.altitude,
+          accuracy: coords.accuracy,
+          altitudeAccuracy: coords.altitudeAccuracy,
+        },
+        geocode
+      }
     });
   };
 
