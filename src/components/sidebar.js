@@ -62,7 +62,7 @@ class Sidebar extends Component {
 
   render({ session, entries }, { message }) {
     const isLoggedIn = session.isLoggedIn();
-console.log(entries);
+
     return (
       <div class={style.sidebar}>
         <div class={style.logo}>
