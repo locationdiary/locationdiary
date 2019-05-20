@@ -1,4 +1,5 @@
 import { h, Component } from "preact";
+import { v4 as uuid } from 'uuid';
 
 import style from "./sidebar.css";
 import GeolocationBar from "./geolocationbar";
@@ -8,24 +9,56 @@ class Sidebar extends Component {
   state = {
     location: null,
     message: '',
+    entries: null,
+  }
+
+  async componentDidMount() {
+    await this.loadEntries();
+  }
+
+  async componentDidUpdate(prevProps) {
+    const {session} = this.props;
+    const oldSession = prevProps.session;
+    if(session !== oldSession) {
+      await this.loadEntries();
+    }
+  }
+
+  loadEntries = async () => {
+    const {session} = this.props;
+    if(session) {
+      const entries = await session.getData() || [];
+      this.setState({entries});
+    }
   }
 
   handleMessage = (event) => {
     this.setState({message: event.target.value});
   }
 
-  handleNewLocation = (coords, geoloc) => {
+  handleNewLocation = (coords, geocode) => {
     this.setState({
-      location: {coords, geoloc},
+      location: {coords, geocode},
     });
-    console.log(coords, geoloc);
   }
 
-  addEntry = (entry) => {
+  addEntry = async () => {
+    const {message, location} = this.state;
+    const {session} = this.props;
+    const newEntry = {
+      message,
+      location,
+      date: (new Date()).toISOString(),
+      id: uuid(),
+    };
 
+    const entries = await session.getData() || [];
+    entries.push(newEntry);
+    await session.saveData(entries);
+    await this.loadEntries();
   };
 
-  render({session}, {message}) {
+  render({session}, {message, entries}) {
     const isLoggedIn = session.isLoggedIn();
 
     return (
@@ -42,7 +75,16 @@ class Sidebar extends Component {
         {isLoggedIn && <div class={style.publisher}>
           <input type="text" value={message} onChange={this.handleMessage} placeholder="What are you up to?" />
           <GeolocationBar handleNewLocation={this.handleNewLocation} />
-          <input type="button" value="Publish" />
+          <input type="button" value="Publish" onClick={this.addEntry} />
+        </div>}
+
+        {isLoggedIn && entries && <div class={style.entries}>
+          {entries.length} entries
+          {entries.map(entry => (
+            <div>
+              {entry.location && entry.location.geocode.display_name} {entry.message}
+            </div>
+          ))}
         </div>}
       </div>
     );
