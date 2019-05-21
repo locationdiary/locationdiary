@@ -20,6 +20,7 @@
     "build/*"
   ],
   "devDependencies": {
+    "babel-preset-es2015": "^6.24.1",
     "eslint": "^4.9.0",
     "eslint-config-synacor": "^2.0.2",
     "identity-obj-proxy": "^3.0.0",
