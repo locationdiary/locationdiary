@@ -19,7 +19,7 @@ class Home extends Component {
   async componentDidUpdate(prevProps) {
     const {session} = this.props;
     const oldSession = prevProps.session;
-    if (session !== oldSession) {
+    if (session && session !== oldSession && session.isLoggedIn()) {
       await this.loadEntries();
     }
   }
