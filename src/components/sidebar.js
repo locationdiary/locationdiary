@@ -51,7 +51,9 @@ class Sidebar extends Component {
     });
   };
 
-  addEntry = async () => {
+  addEntry = async (e) => {
+    e.preventDefault();
+
     const { message, location } = this.state;
     const { session } = this.props;
     const newEntry = {
@@ -60,6 +62,12 @@ class Sidebar extends Component {
       date: new Date().toISOString(),
       id: uuid()
     };
+
+    this.props.addEntry({
+      ...newEntry,
+      provisional: true
+    });
+    this.setState({message: ''});
 
     const entries = (await session.getData()) || [];
     entries.push(newEntry);
@@ -96,11 +104,13 @@ class Sidebar extends Component {
         </div>}
 
         {isLoggedIn === true && <div class={style.publisher}>
-          <input type="text" value={message} onChange={this.handleMessage} placeholder="What are you up to?" />
-          <div class={style.geo}>
-            <GeolocationBar handleNewLocation={this.handleNewLocation} />
-            <input type="button" value="Publish" onClick={this.addEntry} />
-          </div>
+          <form onSubmit={this.addEntry}>
+            <input type="text" value={message} onChange={this.handleMessage} placeholder="What are you up to?" />
+            <div class={style.geo}>
+              <GeolocationBar handleNewLocation={this.handleNewLocation} />
+              <input type="submit" value="Publish" />
+            </div>
+          </form>
         </div>}
 
         {isLoggedIn === true && <div class={style.entries}>

@@ -2,6 +2,11 @@
   padding: 1em 0;
 }
 
+.provisional {
+  padding: 1em 0;
+  color: #aaa;
+}
+
 .date {
   font-size: .9em;
 }

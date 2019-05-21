@@ -21,7 +21,7 @@
   margin-top: 3em;
 }
 
-input[type=button] {
+input[type=button], input[type=submit] {
   font-size: 1.1em;
   border: 0;
   cursor: pointer;
@@ -66,8 +66,7 @@ input[type=button] {
   align-self: auto;
 }
 
-.publisher input[type=button] {
-  float: right;
+.publisher input[type=submit] {
   padding: .3em .6em;
   background-color: #3d8cdb;
   color: #fff;

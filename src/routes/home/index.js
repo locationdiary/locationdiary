@@ -24,6 +24,15 @@ class Home extends Component {
     }
   }
 
+  addEntry = (entry) => {
+    this.setState((state) => ({
+      entries: [
+        entry,
+        ...state.entries
+      ]
+    }));
+  };
+
   loadEntries = async () => {
     const {session} = this.props;
     const entries = (await session.getData()) || [];
@@ -43,6 +52,7 @@ class Home extends Component {
             entries={entries}
             handleNewLocation={this.handleNewLocation}
             loadEntries={this.loadEntries}
+            addEntry={this.addEntry}
           />
         </div>
       </div>
