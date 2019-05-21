@@ -97,8 +97,10 @@ class Sidebar extends Component {
 
         {isLoggedIn === true && <div class={style.publisher}>
           <input type="text" value={message} onChange={this.handleMessage} placeholder="What are you up to?" />
-          <GeolocationBar handleNewLocation={this.handleNewLocation} />
-          <input type="button" value="Publish" onClick={this.addEntry} />
+          <div class={style.geo}>
+            <GeolocationBar handleNewLocation={this.handleNewLocation} />
+            <input type="button" value="Publish" onClick={this.addEntry} />
+          </div>
         </div>}
 
         {isLoggedIn === true && <div class={style.entries}>

@@ -30,9 +30,7 @@ class Home extends Component {
     this.setState({ entries });
   };
 
-  render() {
-    const {entries} = this.state;
-
+  render({}, {entries}) {
     return (
       <div class={style.home}>
         <div class={style.fullmap}>

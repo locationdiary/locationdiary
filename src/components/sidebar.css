@@ -24,6 +24,7 @@
 input[type=button] {
   font-size: 1.1em;
   border: 0;
+  cursor: pointer;
 }
 
 .signin input {
@@ -34,8 +35,7 @@ input[type=button] {
 }
 
 .publisher {
-  clear: both;
-  margin-bottom: 3em;
+  margin-bottom: 1em;
 }
 
 .publisher input[type=text] {
@@ -45,14 +45,31 @@ input[type=button] {
   font-size: 1.2em;
 }
 
-.publisher button {
-  float: left;
+.geo {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.geo div:nth-child(1) {
+  order: 0;
+  flex: 1 1 auto;
+  align-self: auto;
+  padding-right: .5em;
+}
+
+.geo input:nth-child(2) {
+  order: 1;
+  flex: 0 1 auto;
+  align-self: auto;
 }
 
 .publisher input[type=button] {
   float: right;
   padding: .3em .6em;
-  background-color: #75B1ED;
+  background-color: #3d8cdb;
   color: #fff;
 }
 

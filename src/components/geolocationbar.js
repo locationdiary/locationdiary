@@ -1,6 +1,9 @@
 import { h, Component } from "preact";
 import axios from "axios";
 
+import style from './geolocationbar.css';
+import refresh from '../assets/sync-solid.svg';
+
 class GeolocationBar extends Component {
   handleError(error) {
     let errorMessage;
@@ -21,7 +24,6 @@ class GeolocationBar extends Component {
     }
     this.setState({
       errorMessage,
-      errored: true,
       loading: false
     });
   }
@@ -35,6 +37,8 @@ class GeolocationBar extends Component {
     return data;
   }
   async handleNewLocation(position) {
+    localStorage.setItem('geo_access_given', '1');
+
     const geocode = await this.getGeocode(
       position.coords.latitude,
       position.coords.longitude
@@ -42,6 +46,7 @@ class GeolocationBar extends Component {
     this.setState({
       location: position.coords,
       geocode,
+      errorMessage: null,
       loading: false
     });
     this.props.handleNewLocation(position.coords, geocode);
@@ -49,8 +54,7 @@ class GeolocationBar extends Component {
   getLocation() {
     if (!navigator.geolocation) {
       return this.setState({
-        errorMessage: "Your browser is not supported.",
-        errored: true
+        errorMessage: "Your browser is not supported."
       });
     }
 
@@ -72,13 +76,21 @@ class GeolocationBar extends Component {
     this.handleNewLocation = this.handleNewLocation.bind(this);
   }
 
-  render() {
+  componentDidMount() {
+    if(localStorage.getItem('geo_access_given') === '1'){
+      this.getLocation();
+    }
+    else if(!this.state.errorMessage) {
+      this.setState({errorMessage: 'Click here to authorize location'});
+    }
+  }
+
+  render({}, {loading, errorMessage, geocode}) {
     return (
-      <div>
-        {this.state.loading && <div>Loading...</div>}
-        {this.state.errored && <div>{this.state.errorMessage}</div>}
-        {this.state.geocode && <div>{this.state.geocode.display_name}</div>}
-        <button onClick={this.getLocation}>Geolocate me</button>
+      <div class={style.geolocation} onClick={this.getLocation}>
+        {loading && <div>Loading location…</div>}
+        {!loading && errorMessage && <div>{errorMessage}</div>}
+        {!loading && geocode && <div>{geocode.display_name} <img src={refresh} class={style.icon} /></div>}
       </div>
     );
   }
