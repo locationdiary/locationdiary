@@ -27,11 +27,11 @@
     "jest": "^21.2.1",
     "per-env": "^1.0.2",
     "preact-cli": "^2.1.0",
-    "preact-cli-plugin-fast-async": "^1.0.1",
     "preact-render-spy": "^1.2.1"
   },
   "dependencies": {
     "axios": "^0.18.0",
+    "babel-polyfill": "^6.26.0",
     "blockstack": "^19.1.0",
     "dayjs": "^1.8.14",
     "leaflet": "^1.5.1",

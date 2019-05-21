@@ -1,7 +1,4 @@
-const asyncPlugin = require("preact-cli-plugin-fast-async");
-
 export default (config, env, helpers) => {
-  asyncPlugin(config);
   if(config.devServer) {
     config.devServer.headers = {
       'Access-Control-Allow-Origin': '*',
