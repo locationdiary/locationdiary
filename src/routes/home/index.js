@@ -27,6 +27,7 @@ class Home extends Component {
   loadEntries = async () => {
     const {session} = this.props;
     const entries = (await session.getData()) || [];
+    entries.reverse();
     this.setState({ entries });
   };
 

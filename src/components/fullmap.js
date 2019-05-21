@@ -4,6 +4,11 @@ import pin from "leaflet/dist/images/marker-icon.png";
 import pin2x from "leaflet/dist/images/marker-icon-2x.png";
 import shadow from "leaflet/dist/images/marker-shadow.png";
 import L from "leaflet";
+import dayjs from 'dayjs';
+import LocalizedFormat from 'dayjs/plugin/localizedFormat';
+import 'dayjs/locale/en';
+
+dayjs.extend(LocalizedFormat);
 
 const customIcon = L.icon({
   iconUrl: pin,
@@ -27,6 +32,7 @@ class FullMap extends Component {
       if (!location.location || !location.location.coords || !location.location.coords.latitude) {
         return null;
       }
+      const date = dayjs(location.date).format('lll');
       markers[location.id] = L.marker(
         [location.location.coords.latitude, location.location.coords.longitude],
         {
@@ -34,7 +40,9 @@ class FullMap extends Component {
         }
       )
         .addTo(this.state.map)
-        .bindPopup(location.message);
+        .bindPopup(location.message
+          ? `${date}<br/><b>${location.message}</b> @ <em>${location.location.geocode.display_name}</em>`
+          : `${date}<br/><em>${location.location.geocode.display_name}</em>`);
     });
     this.setState({
       markers
