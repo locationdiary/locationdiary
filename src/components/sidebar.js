@@ -10,18 +10,25 @@ class Sidebar extends Component {
   state = {
     location: null,
     message: "",
-    entries: null
+    isLoggedIn: null,
+    loginRedirect: false,
   };
 
-  async componentDidMount() {
-    await this.props.loadEntries();
+  componentDidMount() {
+    const {session} = this.props;
+    if(session) {
+      const isLoggedIn = session.isLoggedIn();
+      this.setState({isLoggedIn});
+    }
   }
 
-  async componentDidUpdate(prevProps) {
-    const { session } = this.props;
-    const oldSession = prevProps.session;
-    if (session !== oldSession) {
-      await this.props.loadEntries();
+  componentDidUpdate() {
+    const {session} = this.props;
+    if(session) {
+      const isLoggedIn = session.isLoggedIn();
+      if(this.state.isLoggedIn !== isLoggedIn) {
+        this.setState({isLoggedIn});
+      }
     }
   }
 
@@ -60,30 +67,48 @@ class Sidebar extends Component {
     await this.props.loadEntries();
   };
 
-  render({ session, entries }, { message }) {
-    const isLoggedIn = session.isLoggedIn();
+  handleLogin = () => {
+    const {session} = this.props;
+    this.setState({loginRedirect: true});
+    session.login();
+  }
 
+  handleLogout = () => {
+    const {session} = this.props;
+    session.logout();
+    this.setState({isLoggedIn: false});
+  }
+
+  render({ entries }, { message, isLoggedIn, loginRedirect }) {
     return (
       <div class={style.sidebar}>
         <div class={style.logo}>
           <img src={logo} /> Location Diary
         </div>
 
-        {!isLoggedIn && <div class={style.signin}>
-          <div>Please connect using Blockstack<br/>to open your diary</div>
-          <div><input type="button" value="Login" onClick={() => session.login()} /></div>
+        {isLoggedIn === null && <div class={style.signin}>
+          <div>Loading…</div>
         </div>}
 
-        {isLoggedIn && <div class={style.publisher}>
+        {isLoggedIn === false && <div class={style.signin}>
+          <div>Please connect using Blockstack<br/>to open your diary</div>
+          <div><input type="button" value={loginRedirect ? 'Loading…' : 'Login'} disabled={loginRedirect} onClick={this.handleLogin} /></div>
+        </div>}
+
+        {isLoggedIn === true && <div class={style.publisher}>
           <input type="text" value={message} onChange={this.handleMessage} placeholder="What are you up to?" />
           <GeolocationBar handleNewLocation={this.handleNewLocation} />
           <input type="button" value="Publish" onClick={this.addEntry} />
         </div>}
 
-        {isLoggedIn && <div class={style.entries}>
+        {isLoggedIn === true && <div class={style.entries}>
           {!entries && <div>Loading diary…</div>}
           {entries && <div>{entries.length === 0 ? 'No' : entries.length} {entries.length === 1 ? 'entry' : 'entries'}</div>}
           {entries && entries.map(entry => <Entry entry={entry} />)}
+        </div>}
+
+        {isLoggedIn === true && <div class={style.signin}>
+          <div><input type="button" value="Logout" onClick={this.handleLogout} /></div>
         </div>}
       </div>
     );

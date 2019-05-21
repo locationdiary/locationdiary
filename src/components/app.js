@@ -20,8 +20,9 @@ export default class App extends Component {
     this.currentUrl = e.url;
   };
 
-  componentDidMount() {
+  async componentDidMount() {
     const session = new Session();
+    await session.init();
     this.setState({session});
   }
 

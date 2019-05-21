@@ -6,14 +6,16 @@ class Session {
   constructor() {
     this.userSession = new blockstack.UserSession();
   }
-  async login() {
+  async init() {
     if (this.userSession.isUserSignedIn()) {
       this.userSession.loadUserData();
-    } else if (this.userSession.isSignInPending()) {
-      await this.userSession.handlePendingSignIn();
-    } else {
-      return this.userSession.redirectToSignIn();
     }
+    else if (this.userSession.isSignInPending()) {
+      await this.userSession.handlePendingSignIn();
+    }
+  }
+  async login() {
+    return this.userSession.redirectToSignIn();
   }
   async logout() {
     this.userSession.signUserOut();

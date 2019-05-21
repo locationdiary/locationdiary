@@ -1,41 +1,47 @@
 import { h, Component } from "preact";
 import style from "./style";
-import { v4 as uuid } from "uuid";
 
 import FullMap from "../../components/fullmap";
 import Sidebar from "../../components/sidebar";
 
 class Home extends Component {
+  state = {
+    entries: null,
+  };
+
   async componentDidMount() {
-    await this.loadEntries();
+    const {session} = this.props;
+    if(session && session.isLoggedIn()) {
+      await this.loadEntries();
+    }
   }
 
-  constructor(props) {
-    super(props);
-    this.props = props;
-    this.state = {
-      locations: []
-    };
+  async componentDidUpdate(prevProps) {
+    const {session} = this.props;
+    const oldSession = prevProps.session;
+    if (session !== oldSession) {
+      await this.loadEntries();
+    }
   }
 
   loadEntries = async () => {
-    const { session } = this.props;
-    if (session) {
-      const entries = (await session.getData()) || [];
-      this.setState({ entries });
-    }
+    const {session} = this.props;
+    const entries = (await session.getData()) || [];
+    this.setState({ entries });
   };
 
   render() {
+    const {entries} = this.state;
+
     return (
       <div class={style.home}>
         <div class={style.fullmap}>
-          <FullMap locations={this.state.entries} />
+          <FullMap locations={entries} />
         </div>
         <div class={style.sidebar}>
           <Sidebar
             session={this.props.session}
-            entries={this.state.entries}
+            entries={entries}
             handleNewLocation={this.handleNewLocation}
             loadEntries={this.loadEntries}
           />
