@@ -24,7 +24,7 @@ class FullMap extends Component {
       if (markers[location.id]) {
         return null;
       }
-      if (!location.location || location.location.coords || !location.location.coords.latitude) {
+      if (!location.location || !location.location.coords || !location.location.coords.latitude) {
         return null;
       }
       markers[location.id] = L.marker(
