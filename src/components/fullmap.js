@@ -24,7 +24,7 @@ class FullMap extends Component {
       if (markers[location.id]) {
         return null;
       }
-      if (!location.location.coords || !location.location.coords.latitude) {
+      if (!location.location || location.location.coords || !location.location.coords.latitude) {
         return null;
       }
       markers[location.id] = L.marker(
@@ -42,7 +42,7 @@ class FullMap extends Component {
   }
   componentDidMount() {
     const position = [51.505, -0.09];
-    const map = L.map("map").setView(position, 2);
+    const map = L.map("map").setView(position, 3);
 
     L.tileLayer(
       "https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png",
