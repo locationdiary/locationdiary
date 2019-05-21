@@ -12,6 +12,10 @@ class Session {
     }
     else if (this.userSession.isSignInPending()) {
       await this.userSession.handlePendingSignIn();
+      // Remove query string to avoid authResponse from hanging around
+      if(window.history) {
+        window.history.replaceState({}, document.title, '/');
+      }
     }
   }
   async login() {
