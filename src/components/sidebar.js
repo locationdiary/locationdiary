@@ -1,4 +1,5 @@
 import { h, Component } from "preact";
+import { Link } from 'preact-router';
 import { v4 as uuid } from "uuid";
 
 import style from "./sidebar.css";
@@ -69,9 +70,7 @@ class Sidebar extends Component {
     });
     this.setState({message: ''});
 
-    const entries = (await session.getData()) || [];
-    entries.push(newEntry);
-    await session.saveData(entries);
+    await session.addEntry(newEntry);
     await this.props.loadEntries();
   };
 
@@ -87,7 +86,7 @@ class Sidebar extends Component {
     this.setState({isLoggedIn: false});
   }
 
-  render({ entries }, { message, isLoggedIn, loginRedirect }) {
+  render({entries, index}, {message, isLoggedIn, loginRedirect}) {
     return (
       <div class={style.sidebar}>
         <div class={style.logo}>
@@ -117,6 +116,9 @@ class Sidebar extends Component {
           {!entries && <div>Loading diary…</div>}
           {entries && <div>{entries.length === 0 ? 'No' : entries.length} {entries.length === 1 ? 'entry' : 'entries'}</div>}
           {entries && entries.map(entry => <Entry entry={entry} />)}
+          <div>
+            {index && index.pages.map((page, index) => <span><Link class={style.bla} activeClassName={style.active} href={`/${page.replace('.json', '')}`}>{index+1}</Link> </span>)}
+          </div>
         </div>}
 
         {isLoggedIn === true && <div class={style.signin}>

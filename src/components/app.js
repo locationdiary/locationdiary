@@ -31,6 +31,7 @@ export default class App extends Component {
       <div id="app">
         <Router onChange={this.handleRoute}>
           <Home path="/" session={session} />
+          <Home path="/:page" session={session} />
         </Router>
       </div>
     );

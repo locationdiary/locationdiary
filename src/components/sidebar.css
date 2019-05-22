@@ -76,3 +76,11 @@ input[type=button], input[type=submit] {
   border-top: 1px solid #eee;
   padding-top: 1em;
 }
+
+.bla {
+  font-weight: normal;
+}
+
+.active {
+  font-weight: bold;
+}

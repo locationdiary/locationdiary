@@ -6,6 +6,7 @@ import Sidebar from "../../components/sidebar";
 
 class Home extends Component {
   state = {
+    index: null,
     entries: null,
   };
 
@@ -17,10 +18,13 @@ class Home extends Component {
   }
 
   async componentDidUpdate(prevProps) {
-    const {session} = this.props;
-    const oldSession = prevProps.session;
-    if (session && session !== oldSession && session.isLoggedIn()) {
-      await this.loadEntries();
+    const {session, page} = this.props;
+    const {session: oldSession, page: oldPage} = prevProps;
+    if (session && session.isLoggedIn()) {
+      if(session !== oldSession || page !== oldPage) {
+        this.setState({entries: null});
+        await this.loadEntries();
+      }
     }
   }
 
@@ -34,13 +38,26 @@ class Home extends Component {
   };
 
   loadEntries = async () => {
-    const {session} = this.props;
-    const entries = (await session.getData()) || [];
-    entries.reverse();
-    this.setState({ entries });
+    const {session, page} = this.props;
+
+    const index = await session.getIndex();
+    this.setState({index});
+
+    if(index.pages.length > 0) {
+      const pageId = page
+      ? `${page}.json`
+      : index.pages[index.pages.length-1];
+      const pageContent = await session.getData(pageId);
+      const entries = pageContent ? pageContent.entries : [];
+      entries.reverse();
+      this.setState({entries});
+    }
+    else {
+      this.setState({entries: []})
+    }
   };
 
-  render({}, {entries}) {
+  render({}, {entries, index}) {
     return (
       <div class={style.home}>
         <div class={style.fullmap}>
@@ -50,6 +67,7 @@ class Home extends Component {
           <Sidebar
             session={this.props.session}
             entries={entries}
+            index={index}
             handleNewLocation={this.handleNewLocation}
             loadEntries={this.loadEntries}
             addEntry={this.addEntry}
