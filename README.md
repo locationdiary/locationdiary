@@ -12,6 +12,8 @@ Location Diary is a **decentralized personal location tracker**:
  * View all your previous entries on a dynamic map<br/>
  * End-to-end encryption using [Blockstack](https://blockstack.org)
 
+Try it live at https://locationdiary.com
+
 <img src="https://github.com/locationdiary/locationdiary/raw/master/src/assets/screenshot.png" alt="" width="100%">
 
 ## Contributing
