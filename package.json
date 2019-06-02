@@ -30,7 +30,7 @@
     "preact-render-spy": "^1.2.1"
   },
   "dependencies": {
-    "axios": "^0.18.0",
+    "axios": "^0.18.1",
     "babel-polyfill": "^6.26.0",
     "blockstack": "^19.1.0",
     "dayjs": "^1.8.14",
