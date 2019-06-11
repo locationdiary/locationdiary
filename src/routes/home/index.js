@@ -3,11 +3,13 @@ import style from "./style";
 
 import FullMap from "../../components/fullmap";
 import Sidebar from "../../components/sidebar";
+import JsonStore from '../../storage/jsonstore';
 
 class Home extends Component {
   state = {
     index: null,
     entries: null,
+    count: null,
   };
 
   async componentDidMount() {
@@ -38,23 +40,9 @@ class Home extends Component {
   };
 
   loadEntries = async () => {
-    const {session, page} = this.props;
-
-    const index = await session.getIndex();
-    this.setState({index});
-
-    if(index.pages.length > 0) {
-      const pageId = page
-      ? `${page}.json`
-      : index.pages[index.pages.length-1];
-      const pageContent = await session.getData(pageId);
-      const entries = pageContent ? pageContent.entries : [];
-      entries.reverse();
-      this.setState({entries});
-    }
-    else {
-      this.setState({entries: []})
-    }
+    const store = await JsonStore.getInstance();
+    const entries = await store.getEntries(0, 10);
+    this.setState({entries});
   };
 
   render({}, {entries, index}) {
@@ -66,11 +54,7 @@ class Home extends Component {
         <div class={style.sidebar}>
           <Sidebar
             session={this.props.session}
-            entries={entries}
-            index={index}
             handleNewLocation={this.handleNewLocation}
-            loadEntries={this.loadEntries}
-            addEntry={this.addEntry}
           />
         </div>
       </div>

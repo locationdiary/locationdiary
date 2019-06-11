@@ -2,6 +2,7 @@ import { h, Component } from "preact";
 import { Link } from 'preact-router';
 import { v4 as uuid } from "uuid";
 
+import JsonStore from '../storage/jsonstore';
 import style from "./sidebar.css";
 import GeolocationBar from "./geolocationbar";
 import Entry from './entry';
@@ -13,24 +14,38 @@ class Sidebar extends Component {
     message: "",
     isLoggedIn: null,
     loginRedirect: false,
+    count: null,
+    entries: null,
   };
 
-  componentDidMount() {
+  async componentDidMount() {
     const {session} = this.props;
     if(session) {
       const isLoggedIn = session.isLoggedIn();
       this.setState({isLoggedIn});
     }
+    await this.loadEntries();
   }
 
-  componentDidUpdate() {
+  async componentDidUpdate(prevProps) {
     const {session} = this.props;
     if(session) {
       const isLoggedIn = session.isLoggedIn();
       if(this.state.isLoggedIn !== isLoggedIn) {
         this.setState({isLoggedIn});
       }
+      if(session !== prevProps.session) {
+        await this.loadEntries();
+      }
     }
+  }
+
+  async loadEntries() {
+    const store = await JsonStore.getInstance();
+    const count = await store.countEntries();
+    const entries = await store.getEntries(0, 10);
+    console.log(entries);
+    this.setState({count, entries});
   }
 
   handleMessage = event => {
@@ -86,7 +101,7 @@ class Sidebar extends Component {
     this.setState({isLoggedIn: false});
   }
 
-  render({entries, index}, {message, isLoggedIn, loginRedirect}) {
+  render({index}, {entries, count, message, isLoggedIn, loginRedirect}) {
     return (
       <div class={style.sidebar}>
         <div class={style.logo}>
@@ -114,7 +129,7 @@ class Sidebar extends Component {
 
         {isLoggedIn === true && <div class={style.entries}>
           {!entries && <div>Loading diary…</div>}
-          {entries && <div>{entries.length === 0 ? 'No' : entries.length} {entries.length === 1 ? 'entry' : 'entries'}</div>}
+          {entries && <div>{count === 0 ? 'No' : count} {count === 1 ? 'entry' : 'entries'}</div>}
           {entries && entries.map(entry => <Entry entry={entry} />)}
           <div>
             {index && index.pages.map((page, index) => <span><Link class={style.bla} activeClassName={style.active} href={`/${page.replace('.json', '')}`}>{index+1}</Link> </span>)}

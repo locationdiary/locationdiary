@@ -2,9 +2,20 @@ import * as blockstack from 'blockstack/dist/blockstack';
 import { v4 as uuid } from 'uuid';
 
 class Session {
+  static instance = null;
+
+  static async getInstance() {
+    if(this.instance === null) {
+      this.instance = new Session();
+      await this.instance.init();
+    }
+    return this.instance;
+  }
+
   constructor() {
     this.userSession = new blockstack.UserSession();
   }
+
   async init() {
     if (this.userSession.isUserSignedIn()) {
       this.userSession.loadUserData();
@@ -33,16 +44,6 @@ class Session {
     const fileContent = await this.userSession.getFile(file);
     return JSON.parse(fileContent);
   }
-  async getIndex() {
-    const index = await this.getData('index.json');
-    if(!index) {
-      return {
-        version: 1,
-        pages: [],
-      };
-    }
-    return index;
-  }
 
   async addEntry(entry) {
     const index = await this.getIndex();
@@ -51,7 +52,6 @@ class Session {
       const page = (await this.getData(pageId)) || {version: 1, entries: []};
       if(page.entries.length < 10) {
         page.entries.push(entry);
-        console.log(pageId, page);
         await this.saveData(pageId, page);
         return;
       }

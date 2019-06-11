@@ -2,7 +2,7 @@ import { h, Component } from "preact";
 import { Router } from "preact-router";
 import 'babel-polyfill';
 
-import Session from "./session";
+import Session from "../storage/blockstack";
 
 // Code-splitting is automated for routes
 import Home from "../routes/home";
@@ -21,8 +21,7 @@ export default class App extends Component {
   };
 
   async componentDidMount() {
-    const session = new Session();
-    await session.init();
+    const session = await Session.getInstance();
     this.setState({session});
   }
 
