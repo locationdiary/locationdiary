@@ -43,9 +43,6 @@ class Home extends Component {
   render({}, {entries}) {
     return (
       <div class={style.home}>
-        <div class={style.fullmap}>
-          <FullMap locations={entries} />
-        </div>
         <div class={style.sidebar}>
           <Sidebar
             session={this.props.session}
@@ -54,6 +51,9 @@ class Home extends Component {
             loadEntries={this.loadEntries}
             addEntry={this.addEntry}
           />
+        </div>
+        <div class={style.fullmap}>
+          <FullMap locations={entries} />
         </div>
       </div>
     );
