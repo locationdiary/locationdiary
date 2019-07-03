@@ -56,6 +56,11 @@ class Sidebar extends Component {
 
     const { message, location } = this.state;
     const { session } = this.props;
+
+    if(!message && !location) {
+      return;
+    }
+
     const newEntry = {
       message,
       location,
