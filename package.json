@@ -32,7 +32,7 @@
   "dependencies": {
     "axios": "^0.18.1",
     "babel-polyfill": "^6.26.0",
-    "blockstack": "^19.1.0",
+    "blockstack": "^19.2.1",
     "dayjs": "^1.8.14",
     "leaflet": "^1.5.1",
     "preact": "^8.2.6",
