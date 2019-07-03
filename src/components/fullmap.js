@@ -50,7 +50,11 @@ class FullMap extends Component {
   }
   componentDidMount() {
     const position = [51.505, -0.09];
-    const map = L.map("map").setView(position, 3);
+    const map = L.map("map", {
+      maxBounds: [[85, -180], [-85, 180]],
+      maxBoundsViscosity: 1,
+      minZoom: 3,
+    }).setView(position, 3);
 
     L.tileLayer(
       "https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png",
