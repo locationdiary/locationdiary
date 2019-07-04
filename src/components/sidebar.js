@@ -43,7 +43,7 @@ class Sidebar extends Component {
     return (
       <div class={style.sidebar}>
         <div class={style.logo}>
-          <img src={logo} /> Location Diary
+          <a href="/"><img src={logo} /> Location Diary</a>
         </div>
 
         {isLoggedIn === null && <div class={style.signin}>
