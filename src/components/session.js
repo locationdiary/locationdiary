@@ -13,13 +13,13 @@ class Session {
     else if (this.userSession.isSignInPending()) {
       await this.userSession.handlePendingSignIn();
       // Remove query string to avoid authResponse from hanging around
-      if(window.history) {
-        window.history.replaceState({}, document.title, '/');
+      if(window.history && window.location.search) {
+        window.history.replaceState({}, document.title, window.location.pathname);
       }
     }
   }
   async login() {
-    return this.userSession.redirectToSignIn();
+    return this.userSession.redirectToSignIn(window.location.origin + '/app');
   }
   async logout() {
     this.userSession.signUserOut();
