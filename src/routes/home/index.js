@@ -107,14 +107,14 @@ class Home extends Component {
                 </p>
                 <this.getStarted class="button button-hero mt-4" />
               </div>
-              <div class="col-md-6 col-lg-7 col-xl-6 offset-xl-1">
+              <div class="d-none d-md-block col-md-5 col-lg-6 col-xl-5 offset-md-1 offset-lg-1 offset-xl-2">
                 <img class="img-fluid" src="/assets/img/hero-img.png" alt="" />
               </div>
             </div>
           </div>
         </section>
 
-        <section class="section-margin generic-margin">
+        <section class="section-margin">
           <div class="container">
             <div class="section-intro text-center pb-90px">
               <h2 id="features">Features</h2>
