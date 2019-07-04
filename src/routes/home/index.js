@@ -81,8 +81,8 @@ class Home extends Component {
                       </a>
                     </li>
                     <li class="nav-item">
-                      <a class="nav-link" href="#screenshot">
-                        Screenshot
+                      <a class="nav-link" href="#explore">
+                        Explore
                       </a>
                     </li>
                   </ul>
@@ -135,7 +135,7 @@ class Home extends Component {
                   <div class="service-card-body">
                     <h3>Save locations</h3>
                     <p>
-                      You are in holidays and you want to save all locations you've
+                      You are on holiday and you want to save all locations you've
                       been to?
                     </p>
                   </div>
@@ -154,7 +154,7 @@ class Home extends Component {
                   <div class="service-card-body">
                     <h3>Secure</h3>
                     <p>
-                      Location diary is end-to-end encrypted, so your locations are
+                      Location Diary is end-to-end encrypted, so your locations are
                       securely stored.
                     </p>
                   </div>
@@ -173,7 +173,7 @@ class Home extends Component {
                   <div class="service-card-body">
                     <h3>Privacy friendly</h3>
                     <p>
-                      As your data are encrypted with Blockstack, only you can see
+                      As your data is encrypted with Blockstack, only you can see
                       your data!
                     </p>
                   </div>
@@ -184,7 +184,7 @@ class Home extends Component {
         </section>
 
         <section
-          id="screenshot"
+          id="explore"
           class="bg-gray section-padding magic-ball magic-ball-about"
         >
           <div class="container">
@@ -206,7 +206,7 @@ class Home extends Component {
                 <p>
                   We spend so many time exploring the world, and never remember
                   where we have been in the past. Thanks to Location Diary, you can
-                  keep track of all places you have been to, and display them on a
+                  keep track of all places you have been to and display them on a
                   beautiful map.
                 </p>
                 <this.getStarted class="button" />
@@ -223,7 +223,7 @@ class Home extends Component {
                   <h6>About Location Diary</h6>
                   <p>
                     We wanted to create an app which respects our users privacy,
-                    that's why we created location diary.
+                    that's why we created Location Diary.
                   </p>
                 </div>
               </div>
@@ -240,10 +240,7 @@ class Home extends Component {
                           <a href="#features">Features</a>
                         </li>
                         <li>
-                          <a href="#screenshot">Screenshot</a>
-                        </li>
-                        <li>
-                          <a href="#footer">Footer</a>
+                          <a href="#explore">Explore</a>
                         </li>
                       </ul>
                     </div>
