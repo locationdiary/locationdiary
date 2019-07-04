@@ -2,6 +2,8 @@ import { h, Component } from "preact";
 import "leaflet/dist/leaflet.css";
 import pin from "leaflet/dist/images/marker-icon.png";
 import pin2x from "leaflet/dist/images/marker-icon-2x.png";
+import newPin from "../assets/marker-icon.png";
+import newPin2x from "../assets/marker-icon-2x.png";
 import shadow from "leaflet/dist/images/marker-shadow.png";
 import L from "leaflet";
 import dayjs from 'dayjs';
@@ -19,6 +21,18 @@ const customIcon = L.icon({
   shadowUrl: shadow,
   shadowSize: [41, 41]
 });
+
+const customIconNew = L.icon({
+  iconUrl: newPin,
+  iconRetinaUrl: newPin2x,
+  iconSize: [24, 41],
+  iconAnchor: [12, 41],
+  popupAnchor: [1, -34],
+  shadowUrl: shadow,
+  shadowSize: [41, 41]
+});
+
+const temporaryMarker = L.marker([0,0], { icon: customIconNew, draggable: true, autoPan: true });
 
 import style from "./fullmap.css";
 
@@ -48,6 +62,7 @@ class FullMap extends Component {
       markers
     });
   }
+
   componentDidMount() {
     const position = [51.505, -0.09];
     const map = L.map("map", {
@@ -69,6 +84,8 @@ class FullMap extends Component {
       this.addLocations(this.props.locations, map);
     }
 
+    map.on('click', this.props.handleMapClick);
+
     this.setState({
       map
     });
@@ -81,6 +98,13 @@ class FullMap extends Component {
   componentWillReceiveProps(nextProps, nexState) {
     if (nextProps.locations) {
       this.addLocations(nextProps.locations, nexState.map);
+    }
+
+    if (nextProps.temporaryMarker) {
+      temporaryMarker.setLatLng(nextProps.temporaryMarker).addTo(this.state.map);
+    }
+    else {
+      temporaryMarker.remove();
     }
   }
 

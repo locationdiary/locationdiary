@@ -7,6 +7,7 @@ import Sidebar from "../../components/sidebar";
 class Home extends Component {
   state = {
     entries: null,
+    temporaryMarker: null,
   };
 
   async componentDidMount() {
@@ -40,7 +41,18 @@ class Home extends Component {
     this.setState({ entries });
   };
 
-  render({}, {entries}) {
+  handleMapClick = (e) => {
+    console.log('ioe', e);
+    this.setTemporaryMarker(e.latlng);
+  };
+
+  setTemporaryMarker = (temporaryMarker) => {
+    this.setState({
+      temporaryMarker
+    });
+  };
+
+  render({}, {entries, temporaryMarker}) {
     return (
       <div class={style.home}>
         <div class={style.sidebar}>
@@ -50,14 +62,14 @@ class Home extends Component {
             handleNewLocation={this.handleNewLocation}
             loadEntries={this.loadEntries}
             addEntry={this.addEntry}
+            setTemporaryMarker={this.setTemporaryMarker}
           />
         </div>
         <div class={style.fullmap}>
-          <FullMap locations={entries} />
+          <FullMap locations={entries} handleMapClick={this.handleMapClick} temporaryMarker={temporaryMarker} />
         </div>
       </div>
     );
   }
 }
-
 export default Home;

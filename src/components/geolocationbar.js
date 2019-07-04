@@ -87,10 +87,11 @@ class GeolocationBar extends Component {
 
   render({}, {loading, errorMessage, geocode}) {
     return (
-      <div class={style.geolocation} onClick={this.getLocation}>
+      <div class={style.geolocation}>
         {loading && <div>Loading location…</div>}
         {!loading && errorMessage && <div>{errorMessage}</div>}
-        {!loading && geocode && <div>{geocode.display_name} <img src={refresh} class={style.icon} /></div>}
+        {!loading && geocode && <div>{geocode.display_name}</div>}
+        <input type="button" value="Use my current location" onClick={this.getLocation} />
       </div>
     );
   }

@@ -2,6 +2,12 @@
   margin-bottom: 1em;
 }
 
+.publisher label {
+  margin-top: 1.4em;
+  margin-bottom: 0;
+  font-weight: bold;
+}
+
 .publisher input[type=text] {
   width: 100%;
   padding: .6em;
@@ -9,29 +15,17 @@
   font-size: 1.2em;
 }
 
-.geo {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: nowrap;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.geo div:nth-child(1) {
-  order: 0;
-  flex: 1 1 auto;
-  align-self: auto;
-  padding-right: .5em;
-}
-
-.geo input:nth-child(2) {
-  order: 1;
-  flex: 0 1 auto;
-  align-self: auto;
-}
-
 .publisher input[type=submit] {
   padding: .3em .6em;
   background-color: #3d8cdb;
   color: #fff;
+}
+
+.publisher input[type=button] {
+  font-size: 0.9em;
+  padding: .2em .6em;
+  background-color: #fff;
+  color: #444; 
+  border: 1px solid #444;
+  vertical-align: bottom;
 }
