@@ -16,6 +16,10 @@
   font-size: 24px;
 }
 
+.logo a, .logo a:hover, .logo a:active, .logo a:visited {
+  color: #444;
+}
+
 .signin {
   text-align: center;
   margin-top: 3em;

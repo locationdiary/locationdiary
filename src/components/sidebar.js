@@ -1,4 +1,5 @@
 import { h, Component } from "preact";
+import { route } from "preact-router";
 
 import style from "./sidebar.css";
 import Publisher from "./publisher";
@@ -8,7 +9,6 @@ import logo from '../assets/icons/apple-icon-152x152.png';
 class Sidebar extends Component {
   state = {
     isLoggedIn: null,
-    loginRedirect: false,
   };
 
   componentDidMount() {
@@ -29,32 +29,25 @@ class Sidebar extends Component {
     }
   }
 
-  handleLogin = () => {
-    const {session} = this.props;
-    this.setState({loginRedirect: true});
-    session.login();
-  }
-
   handleLogout = () => {
     const {session} = this.props;
     session.logout();
     this.setState({isLoggedIn: false});
   }
 
-  render({ entries }, { isLoggedIn, loginRedirect }) {
+  render({ entries }, { isLoggedIn }) {
+    if (isLoggedIn === false) {
+      route('/');
+    }
+
     return (
       <div class={style.sidebar}>
         <div class={style.logo}>
-          <img src={logo} /> Location Diary
+          <a href="/"><img src={logo} /> Location Diary</a>
         </div>
 
         {isLoggedIn === null && <div class={style.signin}>
           <div>Loading…</div>
-        </div>}
-
-        {isLoggedIn === false && <div class={style.signin}>
-          <div>Please connect using Blockstack<br/>to open your diary</div>
-          <div><input type="button" value={loginRedirect ? 'Loading…' : 'Login'} disabled={loginRedirect} onClick={this.handleLogin} /></div>
         </div>}
 
         {isLoggedIn === true && <Publisher

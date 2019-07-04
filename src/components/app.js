@@ -5,6 +5,7 @@ import 'babel-polyfill';
 import Session from "./session";
 
 // Code-splitting is automated for routes
+import LocationApp from "../routes/app";
 import Home from "../routes/home";
 
 export default class App extends Component {
@@ -31,6 +32,7 @@ export default class App extends Component {
       <div id="app">
         <Router onChange={this.handleRoute}>
           <Home path="/" session={session} />
+          <LocationApp path="/app" session={session} />
         </Router>
       </div>
     );
