@@ -51,19 +51,9 @@ class Home extends Component {
                 <a class="navbar-brand" href="/">
                   <h3>📍Location Diary</h3>
                 </a>
-                <button
-                  class="navbar-toggler"
-                  type="button"
-                  data-toggle="collapse"
-                  data-target="#navbarSupportedContent"
-                  aria-controls="navbarSupportedContent"
-                  aria-expanded="false"
-                  aria-label="Toggle navigation"
-                >
-                  <span class="icon-bar" />
-                  <span class="icon-bar" />
-                  <span class="icon-bar" />
-                </button>
+                <div class="navbar-toggler">
+                  <this.getStarted class="button" />
+                </div>
 
                 <div
                   class="collapse navbar-collapse offset"
