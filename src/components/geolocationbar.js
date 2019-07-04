@@ -2,10 +2,9 @@ import { h, Component } from "preact";
 import axios from "axios";
 
 import style from './geolocationbar.css';
-import refresh from '../assets/sync-solid.svg';
 
 class GeolocationBar extends Component {
-  handleError(error) {
+  handleError = (error) => {
     let errorMessage;
     switch (error.code) {
       case error.PERMISSION_DENIED:
@@ -27,6 +26,7 @@ class GeolocationBar extends Component {
       loading: false
     });
   }
+
   async getGeocode(lat, lon) {
     const { data } = await axios.get(
       `https://nominatim.openstreetmap.org/reverse?lat=${lat}&lon=${lon}&format=json`
@@ -36,22 +36,16 @@ class GeolocationBar extends Component {
     }
     return data;
   }
-  async handleNewLocation(position) {
-    localStorage.setItem('geo_access_given', '1');
 
-    const geocode = await this.getGeocode(
+  handleBrowserLocation = (position) => {
+    localStorage.setItem('geo_access_given', '1');
+    this.props.centerMap([
       position.coords.latitude,
-      position.coords.longitude
-    );
-    this.setState({
-      location: position.coords,
-      geocode,
-      errorMessage: null,
-      loading: false
-    });
-    this.props.handleNewLocation(position.coords, geocode);
+      position.coords.longitude,
+    ]);
   }
-  getLocation() {
+
+  getLocation = () => {
     if (!navigator.geolocation) {
       return this.setState({
         errorMessage: "Your browser is not supported."
@@ -63,17 +57,9 @@ class GeolocationBar extends Component {
     });
 
     navigator.geolocation.getCurrentPosition(
-      this.handleNewLocation,
+      this.handleBrowserLocation,
       this.handleError
     );
-  }
-
-  constructor(props) {
-    super(props);
-    this.props = props;
-    this.getLocation = this.getLocation.bind(this);
-    this.handleError = this.handleError.bind(this);
-    this.handleNewLocation = this.handleNewLocation.bind(this);
   }
 
   componentDidMount() {
@@ -82,6 +68,29 @@ class GeolocationBar extends Component {
     }
     else if(!this.state.errorMessage) {
       this.setState({errorMessage: 'Click here to authorize location'});
+    }
+  }
+
+  componentDidUpdate = async (prevProps) => {
+    if (prevProps.currentMapCenter !== this.props.currentMapCenter && this.props.currentMapCenter !== null) {
+      const location = {
+        latitude: this.props.currentMapCenter.lat,
+        longitude: this.props.currentMapCenter.lng,
+      };
+
+      const geocode = await this.getGeocode(
+        location.latitude,
+        location.longitude,
+      );
+
+      this.setState({
+        location,
+        geocode,
+        errorMessage: null,
+        loading: false
+      });
+
+      this.props.handleNewLocation(location, geocode);
     }
   }
 

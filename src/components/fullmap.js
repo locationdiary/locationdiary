@@ -32,7 +32,7 @@ const customIconNew = L.icon({
   shadowSize: [41, 41]
 });
 
-const temporaryMarker = L.marker([0,0], { icon: customIconNew, draggable: true, autoPan: true });
+const temporaryMarker = L.marker([0,0], { icon: customIconNew, zIndexOffset: 1000 });
 
 import style from "./fullmap.css";
 
@@ -80,11 +80,23 @@ class FullMap extends Component {
         maxZoom: 19
       }
     ).addTo(map);
+
+    temporaryMarker.setLatLng(map.getCenter());
+    map.on('move', (e) => {
+      temporaryMarker.setLatLng(e.target.getCenter());
+    });
+
+    map.on('moveend', (e) => {
+      this.props.onMapMove(e.target.getCenter());
+    });
+
     if (this.props.locations) {
       this.addLocations(this.props.locations, map);
     }
 
-    map.on('click', this.props.handleMapClick);
+    if (this.props.showCenter) {
+      temporaryMarker.addTo(map);
+    }
 
     this.setState({
       map
@@ -100,11 +112,17 @@ class FullMap extends Component {
       this.addLocations(nextProps.locations, nexState.map);
     }
 
-    if (nextProps.temporaryMarker) {
-      temporaryMarker.setLatLng(nextProps.temporaryMarker).addTo(this.state.map);
+    if (nextProps.mapCenter !== this.props.mapCenter) {
+      this.state.map.setView(nextProps.mapCenter, 10);
     }
-    else {
-      temporaryMarker.remove();
+
+    if (nextProps.showCenter !== this.props.showCenter) {
+      if (nextProps.showCenter) {
+        temporaryMarker.addTo(this.state.map);
+      }
+      else {
+        temporaryMarker.remove();
+      }
     }
   }
 

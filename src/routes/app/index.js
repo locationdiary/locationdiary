@@ -8,6 +8,8 @@ class Home extends Component {
   state = {
     entries: null,
     temporaryMarker: null,
+    mapCenter: null,
+    showCenter: true,
   };
 
   async componentDidMount() {
@@ -41,18 +43,19 @@ class Home extends Component {
     this.setState({ entries });
   };
 
-  handleMapClick = (e) => {
-    console.log('ioe', e);
-    this.setTemporaryMarker(e.latlng);
+  handleMapMove = (mapCenter) => {
+    this.setState({ mapCenter });
   };
 
-  setTemporaryMarker = (temporaryMarker) => {
-    this.setState({
-      temporaryMarker
-    });
+  centerMap = (initialMapCenter) => {
+    this.setState({ initialMapCenter });
   };
 
-  render({}, {entries, temporaryMarker}) {
+  setShowCenter = (showCenter) => {
+    this.setState({ showCenter });
+  }
+
+  render({}, {entries, initialMapCenter, mapCenter, showCenter}) {
     return (
       <div class={style.home}>
         <div class={style.sidebar}>
@@ -62,11 +65,18 @@ class Home extends Component {
             handleNewLocation={this.handleNewLocation}
             loadEntries={this.loadEntries}
             addEntry={this.addEntry}
-            setTemporaryMarker={this.setTemporaryMarker}
+            centerMap={this.centerMap}
+            currentMapCenter={mapCenter}
+            setShowCenter={this.setShowCenter}
           />
         </div>
         <div class={style.fullmap}>
-          <FullMap locations={entries} handleMapClick={this.handleMapClick} temporaryMarker={temporaryMarker} />
+          <FullMap
+            locations={entries}
+            onMapMove={this.handleMapMove}
+            mapCenter={initialMapCenter}
+            showCenter={showCenter}
+          />
         </div>
       </div>
     );

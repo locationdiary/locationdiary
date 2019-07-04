@@ -18,15 +18,21 @@ class Sidebar extends Component {
       const isLoggedIn = session.isLoggedIn();
       this.setState({isLoggedIn});
     }
+
+    this.props.setShowCenter(!this.state.showEntries);
   }
 
-  componentDidUpdate() {
+  componentDidUpdate(prevProps, prevState) {
     const {session} = this.props;
     if(session) {
       const isLoggedIn = session.isLoggedIn();
       if(this.state.isLoggedIn !== isLoggedIn) {
         this.setState({isLoggedIn});
       }
+    }
+
+    if (prevState.showEntries !== this.state.showEntries) {
+      this.props.setShowCenter(!this.state.showEntries);
     }
   }
 
@@ -59,8 +65,9 @@ class Sidebar extends Component {
           session={this.props.session}
           loadEntries={this.props.loadEntries}
           addEntry={this.props.addEntry}
-          setTemporaryMarker={this.props.setTemporaryMarker}
+          centerMap={this.props.centerMap}
           showEntries={this.handleShowEntries}
+          currentMapCenter={this.props.currentMapCenter}
         />}
 
         {isLoggedIn === true && showEntries && <div class={style.entries}>

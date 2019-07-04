@@ -30,11 +30,6 @@ class Publisher extends Component {
   };
 
   handleNewLocation = (coords, geocode) => {
-    this.props.setTemporaryMarker([
-      coords.latitude,
-      coords.longitude,
-    ]);
-
     this.setState({
       location: {
         coords: {
@@ -88,8 +83,12 @@ class Publisher extends Component {
           <div>You are adding an entry to your Location Diary. Only you will be able to see this data.</div>
           <div>
             <label for="location">Location</label>
-            <div><small>Move the green pin on the map to change your location</small></div>
-            <GeolocationBar handleNewLocation={this.handleNewLocation} />
+            <div><small>Move the map to set the green pin to your entry's location</small></div>
+            <GeolocationBar
+              handleNewLocation={this.handleNewLocation}
+              centerMap={this.props.centerMap}
+              currentMapCenter={this.props.currentMapCenter}
+            />
           </div>
           <div>
             <label for="message">Message</label>
