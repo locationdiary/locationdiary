@@ -27,7 +27,8 @@
     "jest": "^21.2.1",
     "per-env": "^1.0.2",
     "preact-cli": "^2.1.0",
-    "preact-render-spy": "^1.2.1"
+    "preact-render-spy": "^1.2.1",
+    "prettier": "1.18.2"
   },
   "dependencies": {
     "axios": "^0.18.1",

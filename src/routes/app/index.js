@@ -1,8 +1,8 @@
-import { h, Component } from "preact";
-import style from "./style";
+import { h, Component } from 'preact';
+import style from './style';
 
-import FullMap from "../../components/fullmap";
-import Sidebar from "../../components/sidebar";
+import FullMap from '../../components/fullmap';
+import Sidebar from '../../components/sidebar';
 
 class Home extends Component {
   state = {
@@ -13,49 +13,46 @@ class Home extends Component {
   };
 
   async componentDidMount() {
-    const {session} = this.props;
-    if(session && session.isLoggedIn()) {
+    const { session } = this.props;
+    if (session && session.isLoggedIn()) {
       await this.loadEntries();
     }
   }
 
   async componentDidUpdate(prevProps) {
-    const {session} = this.props;
+    const { session } = this.props;
     const oldSession = prevProps.session;
     if (session && session !== oldSession && session.isLoggedIn()) {
       await this.loadEntries();
     }
   }
 
-  addEntry = (entry) => {
-    this.setState((state) => ({
-      entries: [
-        entry,
-        ...state.entries
-      ]
+  addEntry = entry => {
+    this.setState(state => ({
+      entries: [entry, ...state.entries],
     }));
   };
 
   loadEntries = async () => {
-    const {session} = this.props;
+    const { session } = this.props;
     const entries = (await session.getData()) || [];
     entries.reverse();
     this.setState({ entries });
   };
 
-  handleMapMove = (mapCenter) => {
+  handleMapMove = mapCenter => {
     this.setState({ mapCenter });
   };
 
-  centerMap = (initialMapCenter) => {
+  centerMap = initialMapCenter => {
     this.setState({ initialMapCenter });
   };
 
-  setShowCenter = (showCenter) => {
+  setShowCenter = showCenter => {
     this.setState({ showCenter });
-  }
+  };
 
-  render({}, {entries, initialMapCenter, mapCenter, showCenter}) {
+  render({}, { entries, initialMapCenter, mapCenter, showCenter }) {
     return (
       <div class={style.home}>
         <div class={style.fullmap}>

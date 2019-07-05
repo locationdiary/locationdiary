@@ -1,6 +1,6 @@
 import * as blockstack from 'blockstack/dist/blockstack';
 
-const FILE_KEY = "locations.json";
+const FILE_KEY = 'locations.json';
 
 class Session {
   constructor() {
@@ -9,12 +9,15 @@ class Session {
   async init() {
     if (this.userSession.isUserSignedIn()) {
       this.userSession.loadUserData();
-    }
-    else if (this.userSession.isSignInPending()) {
+    } else if (this.userSession.isSignInPending()) {
       await this.userSession.handlePendingSignIn();
       // Remove query string to avoid authResponse from hanging around
-      if(window.history && window.location.search) {
-        window.history.replaceState({}, document.title, window.location.pathname);
+      if (window.history && window.location.search) {
+        window.history.replaceState(
+          {},
+          document.title,
+          window.location.pathname
+        );
       }
     }
   }

@@ -1,4 +1,4 @@
-import { h, Component } from "preact";
+import { h, Component } from 'preact';
 
 class Home extends Component {
   state = {
@@ -7,39 +7,43 @@ class Home extends Component {
   };
 
   componentDidMount() {
-    const {session} = this.props;
-    if(session) {
+    const { session } = this.props;
+    if (session) {
       const isLoggedIn = session.isLoggedIn();
-      this.setState({isLoggedIn});
+      this.setState({ isLoggedIn });
     }
   }
 
   componentDidUpdate() {
-    const {session} = this.props;
-    if(session) {
+    const { session } = this.props;
+    if (session) {
       const isLoggedIn = session.isLoggedIn();
-      if(this.state.isLoggedIn !== isLoggedIn) {
-        this.setState({isLoggedIn});
+      if (this.state.isLoggedIn !== isLoggedIn) {
+        this.setState({ isLoggedIn });
       }
     }
   }
 
-  handleLogin = (e) => {
-    const {session} = this.props;
-    this.setState({loginRedirect: true});
+  handleLogin = e => {
+    const { session } = this.props;
+    this.setState({ loginRedirect: true });
     session.login();
-  }
+  };
 
-  getStarted = (props) => {
+  getStarted = props => {
     if (this.state.isLoggedIn) {
-      return <a {...props} href="/app">Get Started</a>
+      return (
+        <a {...props} href="/app">
+          Get Started
+        </a>
+      );
     }
     return (
       <a {...props} href="#" onClick={this.handleLogin}>
         {this.state.loginRedirect ? 'Loading…' : 'Get Started'}
       </a>
     );
-  }
+  };
 
   render() {
     return (
@@ -92,8 +96,8 @@ class Home extends Component {
               <div class="col-md-6 col-lg-5 mb-5 mb-md-0">
                 <h1>Location Diary</h1>
                 <p>
-                  Keep a track of where you have been, all that saved securely so
-                  that only you can access your data.
+                  Keep a track of where you have been, all that saved securely
+                  so that only you can access your data.
                 </p>
                 <this.getStarted class="button button-hero mt-4" />
               </div>
@@ -125,8 +129,8 @@ class Home extends Component {
                   <div class="service-card-body">
                     <h3>Save locations</h3>
                     <p>
-                      You are on holiday and you want to save all locations you've
-                      been to?
+                      You are on holiday and you want to save all locations
+                      you've been to?
                     </p>
                   </div>
                 </div>
@@ -144,8 +148,8 @@ class Home extends Component {
                   <div class="service-card-body">
                     <h3>Secure</h3>
                     <p>
-                      Location Diary is end-to-end encrypted, so your locations are
-                      securely stored.
+                      Location Diary is end-to-end encrypted, so your locations
+                      are securely stored.
                     </p>
                   </div>
                 </div>
@@ -163,8 +167,8 @@ class Home extends Component {
                   <div class="service-card-body">
                     <h3>Privacy friendly</h3>
                     <p>
-                      As your data is encrypted with Blockstack, only you can see
-                      your data!
+                      As your data is encrypted with Blockstack, only you can
+                      see your data!
                     </p>
                   </div>
                 </div>
@@ -190,14 +194,14 @@ class Home extends Component {
               </div>
               <div class="col-lg-5 col-md-6 align-self-center about-content">
                 <h2>
-                  Exploration is <br class="d-none d-xl-block" /> really the essence{" "}
-                  <br class="d-none d-xl-block" /> of the human spirit
+                  Exploration is <br class="d-none d-xl-block" /> really the
+                  essence <br class="d-none d-xl-block" /> of the human spirit
                 </h2>
                 <p>
                   We spend so many time exploring the world, and never remember
-                  where we have been in the past. Thanks to Location Diary, you can
-                  keep track of all places you have been to and display them on a
-                  beautiful map.
+                  where we have been in the past. Thanks to Location Diary, you
+                  can keep track of all places you have been to and display them
+                  on a beautiful map.
                 </p>
                 <this.getStarted class="button" />
               </div>
@@ -244,10 +248,14 @@ class Home extends Component {
                     <div class="col">
                       <ul>
                         <li>
-                          <a href="https://facebook.com/locationdiary">Facebook</a>
+                          <a href="https://facebook.com/locationdiary">
+                            Facebook
+                          </a>
                         </li>
                         <li>
-                          <a href="https://twitter.com/locationdiary">Twitter</a>
+                          <a href="https://twitter.com/locationdiary">
+                            Twitter
+                          </a>
                         </li>
                       </ul>
                     </div>
