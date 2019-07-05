@@ -3,6 +3,7 @@
 <p>
    <a href="https://github.com/locationdiary/locationdiary/blob/master/LICENSE"><img alt="GitHub" src="https://img.shields.io/github/license/locationdiary/locationdiary.svg?style=popup"></a>
    <a href="https://travis-ci.com/locationdiary/locationdiary"><img alt="Travis-ci.com" src="https://img.shields.io/travis/com/locationdiary/locationdiary/master.svg?style=popup"></a>
+   <a href="https://app.netlify.com/sites/distracted-rosalind-7fc545/deploys"><img alt="Netlify Status" src="https://api.netlify.com/api/v1/badges/6e7ff511-0662-4c40-8ddf-1bb19ebc64fe/deploy-status"></a>
    <a href="https://twitter.com/locationdiary"><img alt="Twitter Follow" src="https://img.shields.io/twitter/follow/locationdiary.svg?style=social"></a>
 </p>
 
