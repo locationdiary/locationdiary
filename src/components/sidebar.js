@@ -9,6 +9,7 @@ import logo from '../assets/icons/apple-icon-152x152.png';
 class Sidebar extends Component {
   state = {
     isLoggedIn: null,
+    showEntries: true,
   };
 
   componentDidMount() {
@@ -17,15 +18,21 @@ class Sidebar extends Component {
       const isLoggedIn = session.isLoggedIn();
       this.setState({isLoggedIn});
     }
+
+    this.props.setShowCenter(!this.state.showEntries);
   }
 
-  componentDidUpdate() {
+  componentDidUpdate(prevProps, prevState) {
     const {session} = this.props;
     if(session) {
       const isLoggedIn = session.isLoggedIn();
       if(this.state.isLoggedIn !== isLoggedIn) {
         this.setState({isLoggedIn});
       }
+    }
+
+    if (prevState.showEntries !== this.state.showEntries) {
+      this.props.setShowCenter(!this.state.showEntries);
     }
   }
 
@@ -35,7 +42,11 @@ class Sidebar extends Component {
     this.setState({isLoggedIn: false});
   }
 
-  render({ entries }, { isLoggedIn }) {
+  handleShowEntries = (show) => {
+    this.setState({ showEntries: show });
+  }
+
+  render({ entries }, { isLoggedIn, showEntries }) {
     if (isLoggedIn === false) {
       route('/');
     }
@@ -54,15 +65,18 @@ class Sidebar extends Component {
           session={this.props.session}
           loadEntries={this.props.loadEntries}
           addEntry={this.props.addEntry}
+          centerMap={this.props.centerMap}
+          showEntries={this.handleShowEntries}
+          currentMapCenter={this.props.currentMapCenter}
         />}
 
-        {isLoggedIn === true && <div class={style.entries}>
+        {isLoggedIn === true && showEntries && <div class={style.entries}>
           {!entries && <div>Loading diary…</div>}
           {entries && <div>{entries.length === 0 ? 'No' : entries.length} {entries.length === 1 ? 'entry' : 'entries'}</div>}
           {entries && entries.map(entry => <Entry entry={entry} />)}
         </div>}
 
-        {isLoggedIn === true && <div class={style.signin}>
+        {isLoggedIn === true && showEntries && <div class={style.signin}>
           <div><input type="button" value="Logout" onClick={this.handleLogout} /></div>
         </div>}
       </div>

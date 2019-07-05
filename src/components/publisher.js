@@ -8,6 +8,21 @@ class Publisher extends Component {
   state = {
     location: null,
     message: "",
+    showForm: false,
+  };
+
+  handleClickNew = () => {
+    this.props.showEntries(false);
+    this.setState({
+      showForm: true
+    });
+  }
+
+  handleCancel = () => {
+    this.props.showEntries(true);
+    this.setState({
+      showForm: false
+    });
   };
 
   handleMessage = event => {
@@ -50,7 +65,8 @@ class Publisher extends Component {
       ...newEntry,
       provisional: true
     });
-    this.setState({message: ''});
+    this.setState({message: '', showForm: false});
+    this.props.showEntries(true);
 
     const entries = (await session.getData()) || [];
     entries.push(newEntry);
@@ -58,16 +74,28 @@ class Publisher extends Component {
     await this.props.loadEntries();
   };
 
-  render({}, { message }) {
+  render({}, { message, showForm }) {
     return (
       <div class={style.publisher}>
-        <form onSubmit={this.addEntry}>
-          <input type="text" value={message} onChange={this.handleMessage} placeholder="What are you up to?" />
-          <div class={style.geo}>
-            <GeolocationBar handleNewLocation={this.handleNewLocation} />
-            <input type="submit" value="Publish" />
+        {!showForm && <input type="submit" value="New Entry" onClick={this.handleClickNew} />}
+        {showForm && <form onSubmit={this.addEntry}>
+          <h2>New Entry</h2>
+          <div>You are adding an entry to your Location Diary. Only you will be able to see this data.</div>
+          <div>
+            <label for="location">Location</label>
+            <div><small>Move the map to set the green pin to your entry's location</small></div>
+            <GeolocationBar
+              handleNewLocation={this.handleNewLocation}
+              centerMap={this.props.centerMap}
+              currentMapCenter={this.props.currentMapCenter}
+            />
           </div>
-        </form>
+          <div>
+            <label for="message">Message</label>
+            <input id="message" type="text" value={message} onChange={this.handleMessage} />
+          </div>
+          <input type="submit" value="Publish" /> <input type="button" value="Cancel" onClick={this.handleCancel} />
+        </form>}
       </div>
     );
   }

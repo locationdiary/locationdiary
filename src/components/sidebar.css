@@ -14,6 +14,8 @@
 .logo {
   height: 52px;
   font-size: 24px;
+  margin-bottom: 1em;
+  border-bottom: 1px solid #eee;
 }
 
 .logo a, .logo a:hover, .logo a:active, .logo a:visited {
@@ -36,9 +38,4 @@ input[type=button], input[type=submit] {
   color: #fff;
   margin-top: 2em;
   padding: .6em 1em;
-}
-
-.entries {
-  border-top: 1px solid #eee;
-  padding-top: 1em;
 }
