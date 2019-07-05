@@ -58,6 +58,14 @@ class Home extends Component {
   render({}, {entries, initialMapCenter, mapCenter, showCenter}) {
     return (
       <div class={style.home}>
+        <div class={style.fullmap}>
+          <FullMap
+            locations={entries}
+            onMapMove={this.handleMapMove}
+            mapCenter={initialMapCenter}
+            showCenter={showCenter}
+          />
+        </div>
         <div class={style.sidebar}>
           <Sidebar
             session={this.props.session}
@@ -68,14 +76,6 @@ class Home extends Component {
             centerMap={this.centerMap}
             currentMapCenter={mapCenter}
             setShowCenter={this.setShowCenter}
-          />
-        </div>
-        <div class={style.fullmap}>
-          <FullMap
-            locations={entries}
-            onMapMove={this.handleMapMove}
-            mapCenter={initialMapCenter}
-            showCenter={showCenter}
           />
         </div>
       </div>

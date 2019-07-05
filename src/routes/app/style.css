@@ -13,30 +13,29 @@
   height: 100%;
   flex: 1 1 auto;
   align-self: auto;
+  order: 1;
 }
 
 .sidebar {
   height: 100%;
   flex: 0 0 360px;
   align-self: auto;
+  order: 0;
 }
 
 @media screen and (max-width: 768px) {
   .home {
-    flex-direction: column;
-    justify-content: stretch;
+    display: block;
+    height: inherit;
   }
 
   .fullmap {
     height: 60%;
-    width: 100%;
-    order: 0;
+    flex: none;
   }
 
   .sidebar {
-    height: 40%;
-    width: 100%;
-    flex: 0 0 auto;
-    order: 1;
+    height: auto;
+    flex: none;
   }
 }
