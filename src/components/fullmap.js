@@ -86,6 +86,7 @@ class FullMap extends Component {
       temporaryMarker.setLatLng(e.target.getCenter());
     });
 
+    this.props.onMapMove(map.getCenter());
     map.on('moveend', (e) => {
       this.props.onMapMove(e.target.getCenter());
     });
