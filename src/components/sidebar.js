@@ -4,6 +4,7 @@ import { route } from "preact-router";
 import style from "./sidebar.css";
 import Publisher from "./publisher";
 import Entry from './entry';
+import EmptyDiary from './emptydiary';
 import logo from '../assets/icons/apple-icon-152x152.png';
 
 class Sidebar extends Component {
@@ -72,7 +73,8 @@ class Sidebar extends Component {
 
         {isLoggedIn === true && showEntries && <div class={style.entries}>
           {!entries && <div>Loading diary…</div>}
-          {entries && <div>{entries.length === 0 ? 'No' : entries.length} {entries.length === 1 ? 'entry' : 'entries'}</div>}
+          {entries && entries.length === 0 && <EmptyDiary />}
+          {entries && entries.length > 0 && <div>{entries.length} {entries.length === 1 ? 'entry' : 'entries'}</div>}
           {entries && entries.map(entry => <Entry entry={entry} />)}
         </div>}
 
