@@ -2,10 +2,10 @@
 	============================================================================================ */
 /* color variables
 	============================================================================================ */
-/* google fonts
+/* fonts
 	============================================================================================ */
-@import url("https://fonts.googleapis.com/css?family=Roboto+Condensed:700");
-@import url("https://fonts.googleapis.com/css?family=Roboto:400,500");
+@import url(../../node_modules/typeface-roboto/index.css);
+@import url(../../node_modules/typeface-roboto-condensed/index.css);
 
 /* mixin start
 	============================================================================================ */
@@ -51,6 +51,7 @@ h4,
 h5,
 h6 {
   font-family: "Roboto Condensed", sans-serif;
+  font-weight: 700;
   color: #2a2a2a;
   line-height: 1.25;
 }
