@@ -7,6 +7,7 @@ import Session from './session';
 // Code-splitting is automated for routes
 import LocationApp from '../routes/app';
 import Home from '../routes/home';
+import MobileRedirect from '../routes/redirect';
 
 export default class App extends Component {
   state = {
@@ -33,6 +34,7 @@ export default class App extends Component {
         <Router onChange={this.handleRoute}>
           <Home path="/" session={session} />
           <LocationApp path="/app" session={session} />
+          <MobileRedirect path="/redirect/mobile" />
         </Router>
       </div>
     );
