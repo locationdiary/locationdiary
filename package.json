@@ -7,9 +7,9 @@
     "start": "per-env",
     "start:production": "npm run -s serve",
     "start:development": "npm run -s dev",
-    "build": "preact build --template src/template.html --no-prerender && cp _headers build/_headers && cp _redirects build/_redirects",
-    "serve": "preact build  --template src/template.html --no-prerender && preact serve",
-    "dev": "preact watch  --template src/template.html",
+    "build": "preact build --template src/template.html --no-prerender --no-esm && cp _headers build/_headers && cp _redirects build/_redirects",
+    "serve": "preact build  --template src/template.html --no-prerender --no-esm && preact serve",
+    "dev": "preact watch  --template src/template.html --no-esm",
     "lint": "eslint src",
     "test": "jest"
   },
@@ -20,25 +20,24 @@
     "build/*"
   ],
   "devDependencies": {
-    "babel-preset-es2015": "^6.24.1",
-    "eslint": "^4.9.0",
-    "eslint-config-synacor": "^2.0.2",
+    "eslint": "^6.8.0",
+    "eslint-config-synacor": "^3.0.5",
     "identity-obj-proxy": "^3.0.0",
-    "jest": "^21.2.1",
+    "jest": "^24.9.0",
     "per-env": "^1.0.2",
-    "preact-cli": "^2.1.0",
+    "preact-cli": "^3.0.0-rc.6",
     "preact-render-spy": "^1.2.1",
     "prettier": "1.19.1"
   },
   "dependencies": {
     "axios": "^0.19.0",
-    "babel-polyfill": "^6.26.0",
     "blockstack": "^19.3.0",
+    "core-js": "^3.6.1",
     "dayjs": "^1.8.18",
     "leaflet": "^1.6.0",
-    "preact": "^8.2.6",
-    "preact-compat": "^3.17.0",
-    "preact-router": "^2.5.7",
+    "preact": "^10.1.1",
+    "preact-router": "^3.1.0",
+    "regenerator-runtime": "^0.13.3",
     "typeface-roboto": "^0.0.75",
     "typeface-roboto-condensed": "^0.0.75",
     "uuid": "^3.3.2"
@@ -66,9 +65,9 @@
       "\\.(css|less|scss)$": "identity-obj-proxy",
       "^./style$": "identity-obj-proxy",
       "^preact$": "<rootDir>/node_modules/preact/dist/preact.min.js",
-      "^react$": "preact-compat",
-      "^react-dom$": "preact-compat",
-      "^create-react-class$": "preact-compat/lib/create-react-class",
+      "^react$": "preact/compat",
+      "^react-dom$": "preact/compat",
+      "^create-react-class$": "preact/compat/lib/create-react-class",
       "^react-addons-css-transition-group$": "preact-css-transition-group"
     }
   }

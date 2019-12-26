@@ -1,10 +1,10 @@
-import * as blockstack from 'blockstack/dist/blockstack';
+import { UserSession } from 'blockstack';
 
 const FILE_KEY = 'locations.json';
 
 class Session {
   constructor() {
-    this.userSession = new blockstack.UserSession();
+    this.userSession = new UserSession();
   }
   async init() {
     if (this.userSession.isUserSignedIn()) {
