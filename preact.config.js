@@ -7,4 +7,8 @@ export default (config, env, helpers) => {
         'X-Requested-With, content-type, Authorization',
     };
   }
+
+  // Help blockstack.js understand it is running in a browser
+  config.node.process = 'mock';
+  config.node.Buffer = true;
 };
