@@ -1,0 +1,7 @@
+[build]
+  command = "yarn build"
+  publish = "build"
+
+[dev]
+  command = "yarn run start"
+  publish = "build"
