@@ -1,7 +1,11 @@
-/* /index.html 200
-
 # Redirect domain aliases to primary domain
 https://app.locationdiary.com/* https://locationdiary.com/:splat 301!
 
 # Optional: Redirect default Netlify subdomain to primary domain
 https://distracted-rosalind-7fc545.netlify.com/* https://locationdiary.com/:splat 301!
+
+# Proxy map tiles
+/tiles/light_all/* https://basemaps.cartocdn.com/light_all/:splat 200
+
+# SPA redirect
+/* /index.html 200
