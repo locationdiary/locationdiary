@@ -2,6 +2,7 @@
  Cache-Control: public, max-age=3600, no-cache
  Access-Control-Max-Age: 600
  Access-Control-Allow-Origin: *
+ can't-be-evil: true
 /sw.js
  Cache-Control: private, no-cache
 /*.chunk.*.js
