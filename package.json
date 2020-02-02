@@ -7,9 +7,9 @@
     "start": "per-env",
     "start:production": "npm run -s serve",
     "start:development": "npm run -s dev",
-    "build": "preact build --template src/template.html --no-prerender --no-esm && cp _headers build/_headers && cp _redirects build/_redirects",
-    "serve": "preact build  --template src/template.html --no-prerender --no-esm && preact serve",
-    "dev": "preact watch  --template src/template.html --no-esm",
+    "build": "preact build --template src/template.html --no-prerender --no-esm --sw false && cp _headers build/_headers && cp _redirects build/_redirects && cp sw.js build/sw.js",
+    "serve": "preact build  --template src/template.html --no-prerender --no-esm --sw false && preact serve",
+    "dev": "preact watch  --template src/template.html --no-esm --sw false",
     "lint": "eslint src",
     "test": "jest"
   },
